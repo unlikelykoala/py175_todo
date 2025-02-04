@@ -8,6 +8,7 @@ from flask import (
     url_for,
 )
 from functools import wraps
+import os
 from uuid import uuid4
 from werkzeug.exceptions import NotFound
 from todos.utils import (
@@ -183,4 +184,7 @@ def edit_title(lst, list_id):
 
     
 if __name__ == "__main__":
-    app.run(debug=True, port=5003)
+    if os.environ.get('FLASK_ENV') == 'production':
+        app.run(debug=False)
+    else:
+        app.run(debug=True, port=5003)
